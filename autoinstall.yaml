@@ -1,21 +1,16 @@
 #cloud-config
 autoinstall:
   version: 1
-
-  interactive-sections:
+    interactive-sections:
     - network
-
-  locale: pt_BR.UTF-8
-
-  keyboard:
-    layout: br
-
-  timezone: America/Sao_Paulo
-
   identity:
-    hostname: clinica-experts
+    hostname: Administrador
     username: administrador
     password: '$6$4xdlAaKPLrIIdwhu$KqdfSNIJF5bk7IdSRflRe8.SxMoWBMmfGGrCGNpY.pAtbmugEpjXk2SkKjkoz0tmyR47hLAW5OoeTJMU34y4F0'
+locale: pt_BR.UTF-8
+  keyboard:
+    layout: br
+  timezone: America/Sao_Paulo
 
   ssh:
     install-server: true
@@ -54,7 +49,9 @@ autoinstall:
     - name: spotify
       channel: stable
       classic: false
-
+    - name: discord
+      channel: stable
+      classic: false
   codecs:
     install: true
 
@@ -71,7 +68,7 @@ autoinstall:
 
       export DEBIAN_FRONTEND=noninteractive
 
-      echo "[1/10] Atualizando pacotes base..."
+      echo "[1/9] Atualizando pacotes base..."
       apt-get update
       apt-get install -y \
         software-properties-common apt-transport-https \
@@ -79,7 +76,7 @@ autoinstall:
         perl libreoffice openssh-server \
         krb5-user samba sssd sssd-tools libnss-sss libpam-sss ntpdate realmd adcli
 
-      echo "[2/10] Ingressando no domínio..."
+      echo "[2/9] Ingressando no domínio..."
 
       # Preencha estes valores antes de usar em produção.
       # Se DOMINIO, USUARIO_DOMINIO ou SENHA_DOMINIO ficarem vazios/placeholder,
@@ -105,7 +102,7 @@ autoinstall:
         echo "Domínio não configurado. Pulando ingresso no domínio."
       fi
 
-      echo "[3/10] Configurando GLPI Agent..."
+      echo "[3/9] Configurando GLPI Agent..."
       cd /tmp
       wget -O glpi-agent.pl https://github.com/glpi-project/glpi-agent/releases/download/1.16/glpi-agent-1.16-linux-installer.pl
       chmod +x glpi-agent.pl
@@ -113,7 +110,7 @@ autoinstall:
 
       systemctl enable glpi-agent || true
 
-      echo "[4/10] Instalando Docker..."
+      echo "[4/9] Instalando Docker..."
       install -m 0755 -d /etc/apt/keyrings
 
       curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
@@ -129,7 +126,7 @@ autoinstall:
 
       systemctl enable docker || true
 
-      echo "[5/10] Instalando Google Chrome..."
+      echo "[5/9] Instalando Google Chrome..."
       wget -q -O - https://dl.google.com/linux/linux_signing_key.pub \
         | gpg --dearmor -o /etc/apt/keyrings/google-chrome.gpg
 
@@ -139,7 +136,7 @@ autoinstall:
       apt-get update
       apt-get install -y google-chrome-stable
 
-      echo "[6/10] Instalando VSCode..."
+      echo "[6/9] Instalando VSCode..."
       wget -qO- https://packages.microsoft.com/keys/microsoft.asc \
         | gpg --dearmor -o /etc/apt/keyrings/ms.gpg
 
@@ -149,20 +146,15 @@ autoinstall:
       apt-get update
       apt-get install -y code
 
-      echo "[7/10] Instalando Discord..."
-      cd /tmp
-      wget -O discord.deb "https://discordapp.com/api/download?platform=linux&format=deb"
-      apt-get install -y ./discord.deb
-
-      echo "[8/10] Instalando Slack..."
+      echo "[7/9] Instalando Slack..."
       cd /tmp
       wget -O slack.deb "https://downloads.slack-edge.com/desktop-releases/linux/x64/4.47.69/slack-desktop-4.47.69-amd64.deb"
       apt-get install -y ./slack.deb
 
-      echo "[9/10] Confirmando LibreOffice..."
+      echo "[8/9] Confirmando LibreOffice..."
       apt-get install -y libreoffice
 
-      echo "[10/10] Setup finalizado com sucesso."
+      echo "[9/9] Setup finalizado com sucesso."
       EOF
 
     - chmod +x /target/root/clinica-experts-postinstall.sh
