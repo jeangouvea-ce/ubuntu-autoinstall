@@ -5,15 +5,13 @@ autoinstall:
     username: administrador
     password: '$6$4xdlAaKPLrIIdwhu$KqdfSNIJF5bk7IdSRflRe8.SxMoWBMmfGGrCGNpY.pAtbmugEpjXk2SkKjkoz0tmyR47hLAW5OoeTJMU34y4F0'
     hostname: CE-NOTE-0288
-locale: pt_BR.UTF-8
+  locale: pt_BR.UTF-8
   keyboard:
     layout: br
   timezone: America/Sao_Paulo
-
   ssh:
     install-server: true
     allow-pw: true
-
   packages:
     - software-properties-common
     - apt-transport-https
@@ -28,8 +26,6 @@ locale: pt_BR.UTF-8
     - git
     - libreoffice
     - openssh-server
-
-    # Domínio / AD
     - krb5-user
     - samba
     - sssd
@@ -39,10 +35,7 @@ locale: pt_BR.UTF-8
     - ntpdate
     - realmd
     - adcli
-
-    # Dependências do GLPI Agent
     - perl
-
   snaps:
     - name: spotify
       channel: stable
@@ -52,13 +45,10 @@ locale: pt_BR.UTF-8
       classic: false
   codecs:
     install: true
-
   drivers:
     install: true
-
   updates: all
-
-late-commands:
+  late-commands:
     - |
       cat > /target/root/clinica-experts-postinstall.sh <<'EOF'
       #!/usr/bin/env bash
