@@ -4,6 +4,7 @@ autoinstall:
     realname: 'Administrador'
     username: administrador
     password: '$6$4xdlAaKPLrIIdwhu$KqdfSNIJF5bk7IdSRflRe8.SxMoWBMmfGGrCGNpY.pAtbmugEpjXk2SkKjkoz0tmyR47hLAW5OoeTJMU34y4F0'
+    hostname: CE-NOTE-0288
 locale: pt_BR.UTF-8
   keyboard:
     layout: br
