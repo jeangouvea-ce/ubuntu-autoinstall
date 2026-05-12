@@ -1,0 +1,31 @@
+autoinstall:
+  version: 1
+  interactive-sections:
+    - network
+  identity:
+    username: administrador
+    password: $6$4xdlAaKPLrIIdwhu$KqdfSNIJF5bk7IdSRflRe8.SxMoWBMmfGGrCGNpY.pAtbmugEpjXk2SkKjkoz0tmyR47hLAW5OoeTJMU34y4F0
+    locale: pt_BR.utf8
+    keyboard:
+        layout: br
+    timezone: "America/Sao_Paulo"   
+    packages:
+        - libreoffice
+        - openssh-server
+        - git
+        - wget
+    snaps:
+        - name: spotify
+          channel: stable
+          classic: false
+
+        - name: discord
+          channel: stable
+          classic:false
+
+    codecs:
+        install: true
+    drivers:
+        install: true
+    updates: all
+    shutdown: reboot
